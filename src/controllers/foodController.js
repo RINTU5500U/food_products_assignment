@@ -1,9 +1,13 @@
 const foodModel = require('../models/foodModel')
+const aws = require('../aws/aws')
 
 module.exports = {
     createFood : async (req, res) => {
         try {
             let data = req.body
+            let files = req.files
+            let uploadImages = aws.uploadImages(files[0])
+            data.images = uploadImages
             let saveData = await foodModel.create(data)
             return res.status(201).send({ status: true, msg: "Food created successfully", Food: saveData })
         } catch (error) {
