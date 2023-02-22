@@ -14,8 +14,8 @@ router.delete('/deleteUser/:userId', authentication, authorization, deleteUser)
 
 router.post('/createFood', authentication, foodValidation, createFood)
 router.get('/fetchFood', authentication, fetchFoodByfilter)
-router.put('/updateFood', authentication, authorization, foodUpdateValidation, updateFood)
-router.delete('/deleteFood', authentication, authorization,deleteFood )
+router.put('user/:userId/updateFood/:foodId', authentication, authorization, foodUpdateValidation, updateFood)
+router.delete('user/:userId/deleteFood/:foodId', authentication, authorization,deleteFood )
 
 router.all("/*", function (req, res) { 
     return res.status(400).send({ status: false, message: "invalid http request" });
