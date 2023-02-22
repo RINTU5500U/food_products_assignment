@@ -17,8 +17,10 @@ module.exports = {
 
     fetchFoodByfilter : async (req, res) => {
         try {
+            let {page} = req.query
+            if (!page) page = 1
             // let { productName, sizes, netWeight, price, ingredients, nutrition, description, images, isVegeterian } = req.query
-            let findData = await foodModel.find({ $and: [req.query, { isDeleted: false }]})
+            let findData = await foodModel.find({ $and: [req.query, { isDeleted: false }]}).skip(2*(page-1)).limit(2)
             return res.status(200).send({ status: true, Foods: findData })
         } catch (error) {
             return res.status(500).send({ status: false, msg: error.message })
